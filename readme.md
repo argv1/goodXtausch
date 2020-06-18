@@ -1,4 +1,4 @@
-[logo](https://github.com/argv1/goodXtausch/blob/master/images/logo.PNG)
+![logo](https://github.com/argv1/goodXtausch/blob/master/images/logo.PNG)
 
 ## goodXtausch
 ======================
@@ -50,7 +50,7 @@ goodreads_api_key = YOUR-API-KEY
 ### User-ID
 
 Browser to your goodreads.com profile to find your user_id
-[User ID](https://argv1.github.com/goodXtausch/images/goodreads_user_id.PNG)
+![User ID](https://argv1.github.com/goodXtausch/images/goodreads_user_id.PNG)
 
 Enter your user_id here:
 ```python
@@ -60,7 +60,7 @@ goodreads_user_id = 'YOUR-USER-ID'
 ### Shelf-ID
 
 You can find your shelfs on the left side of your profile page
-[Shelf](https://argv1.github.com/goodXtausch/images/goodreads_shelf1.PNG)
+![Shelf](https://argv1.github.com/goodXtausch/images/goodreads_shelf1.PNG)
 
 Choose one of them and enter it here:
 ```python
