@@ -50,7 +50,7 @@ goodreads_api_key = YOUR-API-KEY
 ### User-ID
 
 Browser to your goodreads.com profile to find your user_id
-![User ID](https://github.com/argv1/goodXtausch/blob/master/images/goodreads_user_id.PNG)
+![User ID](https://github.com/argv1/goodXtausch/blob/master/images/goodreads_user_id1.PNG)
 
 Enter your user_id here:
 ```python
