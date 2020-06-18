@@ -6,6 +6,9 @@
 goodXtausch helps to search for books on tauschticket.de using the selected shelves on goodreads.com and returns them as html page.
 
 
+![logo](https://github.com/argv1/goodXtausch/blob/master/images/output.PNG)
+
+
 ## Table of content
 
 - [Installation](#installation)
