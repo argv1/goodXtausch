@@ -59,8 +59,8 @@ goodreads_user_id = 'YOUR-USER-ID'
 
 ### Shelf-ID
 
-
 ![Shelf](https://github.com/argv1/goodXtausch/blob/master/images/goodreads_shelf.PNG)
+
 You can find your shelfs on the left side of your profile page
 
 Choose one of them and enter it here:
