@@ -3,7 +3,7 @@
 ## goodXtausch
 ======================
 
-goodXtausch helps to search for books on tauschticket.de using the selected shelves on goodreads.com and returns them as html page.
+goodXtausch helps to search for books on tauschticket.de using the selected shelves on goodreads.com and returns the search result for each book as a table in a html page.
 
 
 ![logo](https://github.com/argv1/goodXtausch/blob/master/images/output.PNG)
