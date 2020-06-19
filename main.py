@@ -51,7 +51,7 @@ def get_title_author(books):
 
 def search_tausch(row):
     '''
-        search for book at tauschticket.de
+        search for book(s) at tauschticket.de
     '''
     s = pd.Series(dtype="object")
     
@@ -78,7 +78,6 @@ def search_tausch(row):
         pattern = "^(\d+)\s+?Angebote\s+?mit.*?\s+?gefunden"
         result = re.search(pattern, headline_text)
         if result: s["results"] = result.groups()[0]
-
     else:
         raise Exception("Error parsing headline of tauschticket, perhaps the site has been updated. ")
     
@@ -125,6 +124,5 @@ def main():
         for line in html_table:
             f.write(line)
             
-
 if __name__  == "__main__":
     main()
