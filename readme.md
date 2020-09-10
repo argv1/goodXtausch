@@ -23,13 +23,12 @@ goodXtausch helps to search for books on tauschticket.de using the selected shel
 
 ## Installation
 
-goodXtausch use the packaging tool Pipenv.
-If you are not already use Pipenv, please run 
+You could either use the requirements.txt via:
 ```bash
-pip install pipenv
+pip3 install -r requirements.txt
 ```
 
-After you successful installed pipenv, please run
+or Pipenv, please run:
 ```bash
 pipenv install --ignore-pipfile
 ```
