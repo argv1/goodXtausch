@@ -3,44 +3,68 @@
     goodXtausch helps to search for books on tauschticket.de using the selected shelves on goodreads.com and returns them as html page.
     A valid goodreads.com API is required, this can be requested for free at https://www.goodreads.com/api
 '''
-
+import argparse
 from bs4 import BeautifulSoup
 import pandas as pd
 from   pathlib import Path
+import random
 import re
 import requests
 import time
 
 # api keys
-goodreads_api_key = ""
+goodreads_api_key = "YOUR_API_KEY"
 
 # time delay between requests 
 time_delay = 1
 
-# get user input
-#goodreads_user_id = input("Goodreads User ID: ")
-goodreads_user_id = ''
-#goodreads_shelf = input("Goodreads User Shelf: ")
-goodreads_shelf = ''
-
-# special characters to remove from search at tauschticket.de
-ignore_characters = ['`', '^', '[', ']', '\\', '<']
-
-# fetch books from goodreads
-url = "https://www.goodreads.com/review/list" 
-params = {
-    "v" : 2,
-    "id" : goodreads_user_id,
-    "shelf" : goodreads_shelf,
-    "per_page" : 200,
-    "key" : goodreads_api_key,
-    "page" : 1
-}
-
-def get_title_author(books):
+def get_books(goodreads_shelf, goodreads_user_id):
     '''
-        gets title and author from the choosen goodreads.com shelf
+        scrap all books from selected shelf and afterwards store the title and author for each item
     '''
+    # fetch books from goodreads
+    url = "https://www.goodreads.com/review/list" 
+    params = {
+        "v" : 2,
+        "id" : goodreads_user_id,
+        "shelf" : goodreads_shelf,
+        "per_page" : 200,
+        "key" : goodreads_api_key,
+        "page" : 1
+    }
+    # some user agent headers
+    user_agent_list = [
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0',
+    ]
+    
+    #Select random header
+    headers = {'User-Agent': random.choice(user_agent_list)}
+
+    books = []
+
+    while True:
+        resp = requests.get(url, params)
+        assert resp.status_code == 200, "Exception accessing Goodreads API. Perhaps it has updated or invalid api key"
+        soup = BeautifulSoup(resp.text, "lxml")
+        
+        # append results
+        books += soup.select("book")
+        
+        # break if we have reached the end
+        end = soup.select_one("reviews").attrs["end"]
+        total = soup.select_one("reviews").attrs["total"]
+        if end == total: 
+            break
+        else:
+            params["page"] += 1  
+        
+        # politely wait, following the goodreads terms of service
+        time.sleep(time_delay)
+
+    # get author and title for each book
     output = []
     for book in books:
         book_data = {
@@ -54,6 +78,9 @@ def search_tausch(row):
     '''
         search for book(s) at tauschticket.de
     '''
+    # special characters to remove from search at tauschticket.de
+    ignore_characters = ['`', '^', '[', ']', '\\', '<', '–']
+
     s = pd.Series(dtype="object")
     
     # get and parse search results
@@ -90,28 +117,16 @@ def search_tausch(row):
     return s
 
 def main():
-    while True:
-        books = []
-        resp = requests.get(url, params)
-        assert resp.status_code == 200, "Exception accessing Goodreads API. Perhaps it has updated or invalid api key"
-        soup = bs4.BeautifulSoup(resp.text, "lxml")
-        
-        # append results
-        books += soup.select("book")
-        
-        # break if we have reached the end
-        end = soup.select_one("reviews").attrs["end"]
-        total = soup.select_one("reviews").attrs["total"]
-        if end == total: 
-            break
-        else:
-            params["page"] += 1  
-        
-        # politely wait, following the goodreads terms of service
-        time.sleep(time_delay)
+    # Initiate the parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--shelf', help='Enter enter name of the shelf', type=str, required=True) 
+    parser.add_argument('-u', '--user_id', help='Enter enter your goodreads user id', type=str, required=True) # user id needs to correspondent to goodreads api key owner
+    args = parser.parse_args()
+    goodreads_shelf   = args.shelf
+    goodreads_user_id = args.user_id
    
     # create a pandas series 
-    df = pd.DataFrame(data=get_title_author(books))
+    df = pd.DataFrame(data=get_books(goodreads_shelf, goodreads_user_id))
     
     # pandas operation to apply 
     tausch_df = df.apply(search_tausch, axis=1)
