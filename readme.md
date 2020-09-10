@@ -23,12 +23,13 @@ goodXtausch helps to search for books on tauschticket.de using the selected shel
 
 ## Installation
 
-You could either use the requirements.txt via:
+goodXtausch use the packaging tool Pipenv.
+If you are not already use Pipenv, please run 
 ```bash
-pip3 install -r requirements.txt
+pip install pipenv
 ```
 
-or Pipenv, please run:
+After you successful installed pipenv, please run
 ```bash
 pipenv install --ignore-pipfile
 ```
@@ -54,10 +55,6 @@ goodreads_api_key = YOUR-API-KEY
 Browser to your goodreads.com profile to find your user_id
 ![User ID](https://github.com/argv1/goodXtausch/blob/master/images/goodreads_user_id.PNG)
 
-Enter your user_id here:
-```python
-goodreads_user_id = 'YOUR-USER-ID'
-```
 
 ### Shelf-ID
 
@@ -65,13 +62,12 @@ goodreads_user_id = 'YOUR-USER-ID'
 
 You can find your shelfs on the left side of your profile page
 
-Choose one of them and enter it here:
-```python
-goodreads_shelf = 'YOUR-SHELF'
-```
 
 ## usage
-After you entered the above information, run the main.py and enjoy the output.html file with the results for your desired books.
+After you API key, run main.py with the two required arguments -s followed by your shelf name and -u followed by your username (corresponding to the goodreads api key owner)
+
+Usage: main.py -s cooking -u 13370123<p>
+Use main.py -h for a list of all options
 
 ## License
 
@@ -81,6 +77,6 @@ For more details, please take a look at the [LICENSE file](https://github.com/ar
 
 ## outlook
 
-- Possibility to enter user_id and shelf on the command line
+- [x] Possibility to enter user_id and shelf on the command line
 - Add search feature for ISBN (https://www.goodreads.com/api/index#book.show_by_isbn)
 - If ISBN is given for hardcover book, search for additional ISBNs like for the paperback version
