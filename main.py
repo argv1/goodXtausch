@@ -4,8 +4,9 @@
     A valid goodreads.com API is required, this can be requested for free at https://www.goodreads.com/api
 '''
 
-import bs4
+from bs4 import BeautifulSoup
 import pandas as pd
+from   pathlib import Path
 import re
 import requests
 import time
@@ -65,8 +66,8 @@ def search_tausch(row):
         "kategorie" : ""
     }
     resp = requests.get(url, params)
-    assert resp.status_code == 200, "Exception accessing taushticket.de"
-    soup = bs4.BeautifulSoup(resp.text, "lxml")
+    assert resp.status_code == 200, "Exception accessing tauschticket.de"
+    soup = BeautifulSoup(resp.text, "lxml")
     
     # fetch headline
     headline_text = soup.find("div", attrs={"class" : "headline_2_space"}).text
@@ -116,11 +117,15 @@ def main():
     tausch_df = df.apply(search_tausch, axis=1)
     combined_df = pd.concat([df, tausch_df], axis=1)
     
+    # Define path and filename
+    base_path   = Path('H:\OneDrive\Programme\_current\goodXtausch')  #adjust
+    result_file = base_path / 'output.html'            
+    
     # return an html table
     pd.set_option('display.max_colwidth', None)
     combined_df['link'] = "<a href='"+combined_df['url']+"'>"+combined_df['title'].astype(str).str[0:15]+"...</a>"
     html_table = combined_df.to_html(escape=False)
-    with open("output.html", "w") as f:
+    with open(result_file, "w", encoding="utf-8") as f:
         for line in html_table:
             f.write(line)
             
