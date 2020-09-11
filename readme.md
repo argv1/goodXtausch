@@ -78,5 +78,6 @@ For more details, please take a look at the [LICENSE file](https://github.com/ar
 ## outlook
 
 - [x] Possibility to enter user_id and shelf on the command line
+- [ ] Possibility to scrap any shelf (here by no further use of the goodreads.com API.)
 - [ ] Add search feature for ISBN (https://www.goodreads.com/api/index#book.show_by_isbn)
 - [ ] If ISBN is given for hardcover book, search for additional ISBNs like for the paperback version
