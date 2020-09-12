@@ -79,7 +79,7 @@ def search_tausch(row):
         search for book(s) at tauschticket.de
     '''
     # special characters to remove from search at tauschticket.de
-    ignore_characters = ['`', '^', '[', ']', '\\', '<', '–']
+    ignore_characters = ['`', '^', '[', ']', '\\', '<', '–', '™']]
 
     s = pd.Series(dtype="object")
     
