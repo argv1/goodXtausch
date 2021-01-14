@@ -50,10 +50,14 @@ Run the main.py with the required argument(s)
 (Use main.py -h for a list of all options)
  
 -a followed by your amazon wishlist url
+
 or
+
 -s followed by the goodreads.com shelf and
 -p followed by the corresponding goodreads.com profile
+
 or
+
 -u followed by your steam UserId
 
 Usage: main.py -u STEAM_ID<p>
