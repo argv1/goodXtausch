@@ -3,6 +3,8 @@
 ## goodXtausch
 ======================
  
+CURRENTLY goodreads not supported due to depricated API keys. Will implement selenium workaround asap.
+
 goodXtausch helps to search for books, games and other items on tauschticket.de based on a goodreads shelf, amazon or steam wishlist and returns the search result for each item as a table in a html page.
  
 Since, as of December 8th 2020, Goodreads no longer issues new developer keys for the public developer API and plans to retire the current version of these tools (more info [here](https://help.goodreads.com/s/article/Does-Goodreads-support-the-use-of-APIs)), I desided to use selenium to solve this issue.
@@ -73,5 +75,8 @@ For more details, please take a look at the [LICENSE file](https://github.com/ar
 - [x] Possibility to use command line
 - [x] Possibility to scrap any shelf (here by no further use of the goodreads.com API.)
 - [x] Add steam and amazon wishlist
+- [x] Creating module for better overview
+- [ ] goodreads.com scrapping using selenium
+- [ ] more accurate results of the Tauschticket search
 - [ ] Add search feature for ISBN (https://www.goodreads.com/api/index#book.show_by_isbn)
 - [ ] If ISBN is given for hardcover book, search for additional ISBNs like for the paperback version
