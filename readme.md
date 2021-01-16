@@ -78,5 +78,6 @@ For more details, please take a look at the [LICENSE file](https://github.com/ar
 - [x] Creating module for better overview
 - [ ] goodreads.com scrapping using selenium
 - [ ] more accurate results of the Tauschticket search
+- [ ] better handling empty results( due to private wishlists)
 - [ ] Add search feature for ISBN (https://www.goodreads.com/api/index#book.show_by_isbn)
 - [ ] If ISBN is given for hardcover book, search for additional ISBNs like for the paperback version
