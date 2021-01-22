@@ -1,58 +1,72 @@
-from   bs4 import BeautifulSoup
-from goodXtausch import get_random_user_agent
-from   pathlib import Path
-import requests
+from bs4 import BeautifulSoup as bs
+import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import sys
 import time
 
-# Global settings
-base_path = Path(__file__).parent.absolute()
-browser = base_path / 'chromedriver.exe' 
+class Goodbot():
+    def __init__(self, username, password, browser, time_delay):
+        self.driver = webdriver.Chrome(executable_path=browser)
+        self.driver.maximize_window()
+        self.username = username
+        self.__password = password
+        self.time_delay = time_delay
 
-def get_books(goodreads_shelf, goodreads_user_id, time_delay):
-    '''
-        scrap all books from selected shelf and afterwards store the title and author for each item
-    '''
-    # fetch books from goodreads
-    url = "https://www.goodreads.com/review/list" 
-    params = {
-        "v" : 2,
-        "id" : goodreads_user_id,
-        "shelf" : goodreads_shelf,
-        "per_page" : 200,
-        "key" : "depricated_api_key", #ändern
-        "page" : 1
-    }
-    # some user agent headers
-    books, headers = [], get_random_user_agent()
+    def __good_login(self):
+        try:
+            self.driver.get("https://www.goodreads.com/")
+            time.sleep(self.time_delay)
+            username_field = self.driver.find_element(By.ID, "userSignInFormEmail")
+            username_field.clear()
+            username_field.send_keys(self.username)
 
-    while True:
-        resp = requests.get(url, params)
-        assert resp.status_code == 200, "Exception accessing Goodreads API. Perhaps it has updated or invalid api key"
-        soup = BeautifulSoup(resp.text, "lxml")
-        
-        # append results
-        books += soup.select("book")
-        
-        # break if we have reached the end
-        end = soup.select_one("reviews").attrs["end"]
-        total = soup.select_one("reviews").attrs["total"]
-        if end == total: 
-            break
-        else:
-            params["page"] += 1  
-        
-        # politely wait, following the goodreads terms of service
-        time.sleep(time_delay)
+            password_field = self.driver.find_element(By.ID, "user_password")
+            password_field.clear()
+            password_field.send_keys(self.__password)
+            time.sleep(self.time_delay)
+            password_field.submit()
+        except:
+            print("Login to goodreads.com not possible.")
+            sys.exit(1)
 
-    # get author and title for each book
-    output = []
-    for book in books:
-        book_data = {
-            "title" : book.select_one("title").text.strip(),
-            "author" : book.select_one("author").find("name").text
-        }
-        output.append(book_data)
-    return output
+    def scroll(self):
+        # Get scroll height
+        last_height = self.driver.execute_script("return document.body.scrollHeight")
+        
+        while True:
+            # Scroll down to bottom
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+            # Wait to load page
+            time.sleep(self.time_delay)
+
+            # Calculate new scroll height and compare with last scroll height
+            new_height = self.driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                # If heights are the same it will exit the function
+                break
+            last_height = new_height
+
+    def get_books(self, goodreads_url):
+        self.__good_login()
+        self.driver.get(goodreads_url)
+        time.sleep(self.time_delay)
+        self.scroll()
+        soup = bs(self.driver.page_source, 'lxml')
+        self.driver.close()
+
+        titles = [re.search(r'\s+(.*)\n',td.find('a').text).group(1) for td in soup.find_all('td' , class_='field title')]
+        authors = [td.find('a').text for td in soup.find_all('td' , class_='field author')]
+        
+        output, n = [], 0
+
+        for title in titles:
+            book_data = {
+                "title" : title,
+                "author" : authors[n]
+            }
+            n+=1
+            output.append(book_data)
+        return output

@@ -1,11 +1,6 @@
 import pandas as pd
-from   pathlib import Path
 
-# Global settings
-base_path = Path(__file__).parent.absolute()
-result_f = base_path / 'output.html'
-
-def get_html(combined_df):
+def get_html(combined_df, result_f):
     pd.set_option('display.max_colwidth', None)
     combined_df['link'] = "<a href='"+combined_df['url']+"'>"+combined_df['title'].astype(str).str[0:15]+"...</a>"
     html_table = combined_df.to_html(escape=False)

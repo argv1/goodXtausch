@@ -1,13 +1,12 @@
-from   bs4 import BeautifulSoup
-import goodXtausch
+from   bs4 import BeautifulSoup as bs
 import pandas as pd
 import re
 import requests
 import time
 
-def search_tausch(row, mode, time_delay):
+def get_tausch(row, mode, time_delay):
     '''
-        search for book(s) at tauschticket.de
+        search for item(s) at tauschticket.de
     '''
     # special characters to remove from search at tauschticket.de
     ignore_characters = ['`', '^', '[', ']', '\\', '<', '–', '™']  #, '®', '-'
@@ -16,7 +15,7 @@ def search_tausch(row, mode, time_delay):
     
     # get and parse search results
     url = "https://www.tauschticket.de/suche/"
-    if(mode == "b"):
+    if(mode == "g"):
         search_string = f'{row["title"]} {row["author"]}'
     else:
         search_string = f'{row["title"]}'
@@ -27,14 +26,14 @@ def search_tausch(row, mode, time_delay):
             "keywords" :  search_string,
             "kategorie" : ""
         }
-    if(mode == "b"):
+    if(mode == "g"):
         params.update({"kategorie" : "buch"})
     elif(mode == "s"):
         params.update({"kategorie" : "pcgame"})
   
     resp = requests.get(url, params=params)
     assert resp.status_code == 200, "Exception accessing tauschticket.de"
-    soup = BeautifulSoup(resp.text, "lxml")
+    soup = bs(resp.text, "lxml")
     
     # fetch headline
     headline_text = soup.find("div", attrs={"class" : "headline_2_space"}).text

@@ -2,12 +2,12 @@
  
 ## goodXtausch
 ======================
- 
-CURRENTLY goodreads not supported due to depricated API keys. Will implement selenium workaround asap.
 
 goodXtausch helps to search for books, games and other items on tauschticket.de based on a goodreads shelf, amazon or steam wishlist and returns the search result for each item as a table in a html page.
  
 Since, as of December 8th 2020, Goodreads no longer issues new developer keys for the public developer API and plans to retire the current version of these tools (more info [here](https://help.goodreads.com/s/article/Does-Goodreads-support-the-use-of-APIs)), I desided to use selenium to solve this issue.
+
+You need ChromeDriver, which you can download [here](https://chromedriver.chromium.org/downloads) and store the execuable in the script folder.
  
 ![logo](https://github.com/argv1/goodXtausch/blob/master/images/output.PNG)
  
@@ -55,14 +55,15 @@ Run the main.py with the required argument(s)
 
 or
 
--s followed by the goodreads.com shelf and
--p followed by the corresponding goodreads.com profile
+-g followed by the corresponding goodreads.com profile ID MINUS shelf
 
 or
 
--u followed by your steam UserId
+-s followed by your steam UserId
 
-Usage: main.py -u STEAM_ID<p>
+Usage: main.py -a AMAZON_WISHLIST_URL<p>
+       main.py -g GOODREADS_ID-SHELF<p>
+       main.py -s STEAM_ID<p>
  
 ## License
  
@@ -76,7 +77,7 @@ For more details, please take a look at the [LICENSE file](https://github.com/ar
 - [x] Possibility to scrap any shelf (here by no further use of the goodreads.com API.)
 - [x] Add steam and amazon wishlist
 - [x] Creating module for better overview
-- [ ] goodreads.com scrapping using selenium
+- [x] goodreads.com scrapping using selenium
 - [ ] more accurate results of the Tauschticket search
 - [ ] better handling empty results( due to private wishlists)
 - [ ] Add search feature for ISBN (https://www.goodreads.com/api/index#book.show_by_isbn)

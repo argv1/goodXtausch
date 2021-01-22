@@ -2,11 +2,11 @@ from   bs4 import BeautifulSoup
 import goodXtausch as gXt
 import requests
 
-def get_amazon_items(wishlist):
+def get_amazon_items(wishlist, user_agent_f):
     '''
         grab items from the choosen public accessable amazon wishlist
     '''
-    output, headers = [], gXt.get_random_user_agent()
+    output, headers = [], gXt.get_random_user_agent(user_agent_f)
 
     # fetch the url
     r = requests.get(wishlist, headers=headers)

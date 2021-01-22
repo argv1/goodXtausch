@@ -1,11 +1,6 @@
-from   pathlib import Path
 import random
 
-# Global settings
-base_path = Path(__file__).parent.absolute()
-user_agent_f = base_path / 'random_user_agent.csv'  
-
-def get_random_user_agent():
+def get_random_user_agent(user_agent_f):
     '''
         grab a random user agent, based on https://github.com/argv1/random_user_agent
     '''   
