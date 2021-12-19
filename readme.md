@@ -5,9 +5,7 @@
 
 goodXtausch helps to search for books, games and other items on tauschticket.de based on a goodreads shelf, amazon or steam wishlist and returns the search result for each item as a table in a html page.
  
-Since, as of December 8th 2020, Goodreads no longer issues new developer keys for the public developer API and plans to retire the current version of these tools (more info [here](https://help.goodreads.com/s/article/Does-Goodreads-support-the-use-of-APIs)), I desided to use selenium to solve this issue.
-
-You need ChromeDriver, which you can download [here](https://chromedriver.chromium.org/downloads) and store the execuable in the script folder.
+Since, as of December 8th 2020, Goodreads no longer issues new developer keys for the public developer API and plans to retire the current version of these tools (more info [here](https://help.goodreads.com/s/article/Does-Goodreads-support-the-use-of-APIs)). First approch using selenium is now replaced by a .csv export.
  
 ![logo](https://github.com/argv1/goodXtausch/blob/master/images/output.PNG)
  
@@ -15,8 +13,7 @@ You need ChromeDriver, which you can download [here](https://chromedriver.chromi
 ## Table of content
  
 - [Installation](#installation)
-    - [User-ID](#User-ID)
-	- [Shelf-ID](#Shelf-ID)
+	- [Goodread-Export](#Goodread-Export)
 - [Usage](#usage)	
 - [License](#license)
 - [Outlook](#outlook)
@@ -35,17 +32,16 @@ pipenv install --ignore-pipfile
 to install the required packages
  
  
-### User-ID
+### Goodread-Export
  
-Go to the relevant goodreads.com profile to find the corresponding user_id
-![User ID](https://github.com/argv1/goodXtausch/blob/master/images/goodreads_user_id.PNG)
+[How do I import or export my books?](https://help.goodreads.com/s/article/How-do-I-import-or-export-my-books-1553870934590)
+- Follow this link to [Goodreads Import and export](https://www.goodreads.com/review/import)
+- Click on "Export Library"
+- Download the CSV file and store in the script folder
  
- 
-### Shelf-ID
  
 ![Shelf](https://github.com/argv1/goodXtausch/blob/master/images/goodreads_shelf.PNG)
  
-Select one of the available shelves on the left side of the profile page.
   
 ## usage
 Run the main.py with the required argument(s)
@@ -55,14 +51,14 @@ Run the main.py with the required argument(s)
 
 or
 
--g followed by the corresponding goodreads.com profile ID MINUS shelf
+-g for your goodread export file
 
 or
 
 -s followed by your steam UserId
 
 Usage: main.py -a AMAZON_WISHLIST_URL<p>
-       main.py -g GOODREADS_ID-SHELF<p>
+       main.py -g<p>
        main.py -s STEAM_ID<p>
  
 ## License
@@ -78,6 +74,7 @@ For more details, please take a look at the [LICENSE file](https://github.com/ar
 - [x] Add steam and amazon wishlist
 - [x] Creating module for better overview
 - [x] goodreads.com scrapping using selenium
+- [x] adjusting goodreads.com search using export .csv file
 - [ ] more accurate results of the Tauschticket search
 - [ ] better handling empty results( due to private wishlists)
 - [ ] Add search feature for ISBN (https://www.goodreads.com/api/index#book.show_by_isbn)

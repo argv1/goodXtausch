@@ -16,9 +16,9 @@ def get_tausch(row, mode, time_delay):
     # get and parse search results
     url = "https://www.tauschticket.de/suche/"
     if(mode == "g"):
-        search_string = f'{row["title"]} {row["author"]}'
+        search_string = f'{row["Title"]} {row["Author"]}'
     else:
-        search_string = f'{row["title"]}'
+        search_string = f'{row["Title"]}'
     for char in ignore_characters:
         search_string = search_string.replace(char, "")
     
