@@ -34,14 +34,11 @@ to install the required packages
  
 ### Goodread-Export
  
-[How do I import or export my books?](https://help.goodreads.com/s/article/How-do-I-import-or-export-my-books-1553870934590)
+[How do I export my books?](https://help.goodreads.com/s/article/How-do-I-import-or-export-my-books-1553870934590)
 - Follow this link to [Goodreads Import and export](https://www.goodreads.com/review/import)
 - Click on "Export Library"
 - Download the CSV file and store in the script folder
- 
- 
-![Shelf](https://github.com/argv1/goodXtausch/blob/master/images/goodreads_shelf.PNG)
- 
+
   
 ## usage
 Run the main.py with the required argument(s)
