@@ -39,10 +39,10 @@ def get_tausch(row, mode, time_delay):
     headline_text = soup.find("div", attrs={"class" : "headline_2_space"}).text
     
     # regular expression is used here to do spacing issues
-    if re.search("Keine\s+?Angebote\s+?in", headline_text):
+    if re.search("Keine\\s+?Angebote\\s+?in", headline_text):
         s["results"] = 0
     elif re.search("Angebote.*?mit", headline_text):
-        pattern = "^(\d+)\s+?Angebote.*?mit.*?\s+?gefunden"
+        pattern = "^\\d+\\s+?Angebote.*?mit.*?\\s+?gefunden"
         result = re.search(pattern, headline_text)
         if result: 
             s["results"] = result.groups()[0]
