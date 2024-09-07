@@ -23,6 +23,8 @@ Windows:
 - Download Repo
 - Unzip
 
+
+
 Optional:
 - Create a virtual environment by
 ```bash
@@ -36,10 +38,14 @@ Optional:
 ```bash
    .\venv\Scripts\activate
 ```
+
+
 - Install required modules:
 ```bash
     pip3 install -r requirements.txt
 ```
+
+
 
 *nix:
 - Clone repo
