@@ -1,5 +1,4 @@
 import goodXtausch as gXt
-import json
 import requests
 
 def steam(steam_id, user_agent_f):

@@ -4,7 +4,7 @@ import re
 import requests
 import time
 
-def get_tausch(row, mode, time_delay):
+def get_tausch(row, mode, time_delay, logger):
     '''
         search for item(s) at tauschticket.de
     '''
@@ -18,7 +18,7 @@ def get_tausch(row, mode, time_delay):
     if(mode == "g"):
         search_string = f'{row["Title"]} {row["Author"]}'
     else:
-        search_string = f'{row["Title"]}'
+        search_string = f'{row["title"]}'
     for char in ignore_characters:
         search_string = search_string.replace(char, "")
     
@@ -38,20 +38,20 @@ def get_tausch(row, mode, time_delay):
     # fetch headline
     headline_text = soup.find("div", attrs={"class" : "headline_2_space"}).text
     
-    # regular expression is used here to do spacing issues
-    if re.search("Keine\\s+?Angebote\\s+?in", headline_text):
-        s["results"] = 0
-    elif re.search("Angebote.*?mit", headline_text):
-        pattern = "^\\d+\\s+?Angebote.*?mit.*?\\s+?gefunden"
-        result = re.search(pattern, headline_text)
-        if result: 
-            s["results"] = result.groups()[0]
+    # Older Version of tauschticket replied with Keine Angebote instead of 0 Angebote
+    # Regex pattern to match the search result headline
+    pattern = r'(\d+)\s+Angebote(?:\s+in\s+([^\"]+))?\s+mit\s+\"([^\"]+)\"\s+gefunden$'
+    result = re.search(pattern, headline_text)
+    
+    if result:
+        s["results"] = int(result.group(1))
+        s["search_term"] = result.group(3)
+        s["category"] = result.group(2) if result.group(2) else "allgemein"
+        s["url"] = resp.url
+
     else:
-        raise Exception("Error parsing headline of tauschticket, perhaps the site has been updated.")
-    
-    # save the url
-    s["url"] = resp.url
-    
+        logger.warning(f"Error parsing headline of tauschticket:\n{headline_text}")
+
     # politely wait
     time.sleep(time_delay)
     return s
