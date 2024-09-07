@@ -81,7 +81,7 @@ or
 -s followed by your steam UserId
 
 Usage: main.py -a AMAZON_WISHLIST_URL<p>
-       main.py -g<p>
+       main.py -g goodreads_library_export.csv<p>
        main.py -s STEAM_ID<p>
  
 ## License
