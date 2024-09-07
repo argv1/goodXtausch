@@ -22,10 +22,6 @@ Since, as of December 8th 2020, Goodreads no longer issues new developer keys fo
 ## **Windows:**
 - Download Repo
 - Unzip
-
-
-
-Optional:
 - Create a virtual environment by
 ```bash
    python -v venv venv
@@ -38,21 +34,16 @@ Optional:
 ```bash
    .\venv\Scripts\activate
 ```
-
 - Install required modules:
 ```bash
     pip3 install -r requirements.txt
 ```
-
 
 ## ** *nix:**
 - Clone repo
 ```bash
    git clone https://github.com/argv1/goodXtausch.git
 ```
-
-
-Optional:
 - Create a virtual environment by
 ```bash
    python3 -v venv venv
@@ -61,9 +52,6 @@ Optional:
 ```bash
    source venv/bin/activate
 ```
-
-
-
 - Install required modules:
 ```bash
     pip3 install -r requirements.txt
