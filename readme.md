@@ -19,7 +19,7 @@ Since, as of December 8th 2020, Goodreads no longer issues new developer keys fo
 - [Outlook](#outlook)
  
 ## Installation
-Windows:
+## **Windows:**
 - Download Repo
 - Unzip
 
@@ -39,19 +39,19 @@ Optional:
    .\venv\Scripts\activate
 ```
 
-
 - Install required modules:
 ```bash
     pip3 install -r requirements.txt
 ```
 
 
-
-*nix:
+## ** *nix:**
 - Clone repo
 ```bash
    git clone https://github.com/argv1/goodXtausch.git
 ```
+
+
 Optional:
 - Create a virtual environment by
 ```bash
@@ -61,6 +61,9 @@ Optional:
 ```bash
    source venv/bin/activate
 ```
+
+
+
 - Install required modules:
 ```bash
     pip3 install -r requirements.txt
