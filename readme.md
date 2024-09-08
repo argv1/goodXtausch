@@ -30,20 +30,16 @@ Since, as of December 8th 2020, Goodreads no longer issues new developer keys fo
 ```bash
    python -m venv venv
 ```
-## ** Windows:**
+### ** Windows:**
 - Set Policies and activate Venv
 ```bash
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    .\venv\Scripts\activate
 ```
-## ** *nix:**
+### ** *nix:**
 - Activate Venv:
 ```bash
    source venv/bin/activate
-```
-- Install required modules:
-```bash
-    pip3 install -r requirements.txt
 ```
 - Install required modules:
 ```bash
