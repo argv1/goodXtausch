@@ -7,5 +7,6 @@ def goodreads(goodreads_shelf_export_f):
     '''
 
     output = pd.read_csv(goodreads_shelf_export_f)   
-
+    if 'Title' in output.columns:
+        output.rename(columns={'Title': 'title'}, inplace=True)
     return output

@@ -4,26 +4,29 @@ import re
 import requests
 import time
 
+
+def clean_string(search_string):
+    # Erlaubt nur Buchstaben, Zahlen, Leerzeichen, Anführungszeichen und Bindestriche
+    cleaned_string = re.sub(r'[^a-zA-Z0-9äÄöÖüÜßéèêÉÈÊëËçÇàÀâÂôÔûÛùÙ\s\"\'-]', '', search_string)
+    return cleaned_string
+
 def get_tausch(row, mode, time_delay, logger):
     '''
         search for item(s) at tauschticket.de
     '''
-    # special characters to remove from search at tauschticket.de
-    ignore_characters = ['`', '^', '[', ']', '\\', '<', '–', '™']  #, '®', '-'
-
     s = pd.Series(dtype="object")
     
     # get and parse search results
     url = "https://www.tauschticket.de/suche/"
     if(mode == "g"):
-        search_string = f'{row["Title"]} {row["Author"]}'
+        search_string = f'{row["title"]} {row["Author"]}'
     else:
         search_string = f'{row["title"]}'
-    for char in ignore_characters:
-        search_string = search_string.replace(char, "")
+    
+    search_term = clean_string(search_string)
     
     params = {
-            "keywords" :  search_string,
+            "keywords" :  search_term,
             "kategorie" : ""
         }
     if(mode == "g"):
